@@ -1,4 +1,4 @@
-# OpenCode Skills Repository
+# Skills Repository
 
 A curated collection of reusable skills for OpenCode, designed to enhance productivity and streamline development workflows.
 
