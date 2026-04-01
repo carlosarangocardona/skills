@@ -9,16 +9,16 @@ description: Search, create, and manage notes in the Obsidian vault with wikilin
 
 `~/sb/`
 
-Mostly flat at root level.
+## Conventions
+
+Always follow the instructions and conventions outlined in `~/sb/AGENTS.md`
 
 ## Naming conventions
 
-- **Index notes**: aggregate related topics (e.g., `Work Index.md`, `Skills Index.md`, `Projects Index.md`).
-- **Title case** for all note names.
+- **Index notes**: aggregate related topics (e.g., `work-index.md`, `skills-index.md`, `projects-index.md`).
+- **kebab-case** is mandatory for all note names (e.g., `migration-plan.md`, `001-scaffolding.md`).
 - Folders for organization:
-  - Use the `~/sb/areas/` folder to divide notes into broad categories (e.g., `Home`, `Personal`, `Work`)
-  - Use links and index notes as well.
-  - Use the `~/sb/notes/` folder for general notes that don't fit into a specific area, or for temporary notes before organizing them.
+  - Always use links to link notes together and also link the new notes to a proper index note as well.
 
 ## Linking
 
@@ -32,28 +32,32 @@ Mostly flat at root level.
 
 ```bash
 # Search by filename
-find "~/sb/" -name "*.md" | grep -i "keyword"
+find "~/sb/" -name "*.md" | rg -i "keyword"
 
 # Search by content
-grep -rl "keyword" "~/sb/" --include="*.md"
+rg -rl "keyword" "~/sb/" --include="*.md"
 ```
 
-Or use Grep/Glob tools directly on the vault path.
+Or use RipGrep/Glob tools directly on the vault path.
 
-### Create a new note
+### How to create a new note
 
-1. Use **Title Case** for filename
-2. Write content as a unit of learning (per vault rules)
-3. Add `[[wikilinks]]` to related notes at the bottom
-4. If part of a numbered sequence, use the hierarchical numbering scheme
-5. Always try to use a template from the `~/sb/templates/` folder. If no template matches the prompt directly use the `note.md` template.
+1. Only use **kebab-case** for note and file names.
+2. Write content as a unit of learning (per vault rules).
+3. Add `[[wikilinks]]` to related notes at the bottom.
+4. If part of a numbered sequence, use the hierarchical numbering scheme.
+5. Always use a template from the `~/sb/templates/` folder. If no template matches the prompt directly use the `~/sb/templates/meeting-note.md` template.
+   - For meeting notes use the `~/sb/templates/meeting-note.md` template and name the note with the date and meeting topic (e.g., `2025-06-01-project-kickoff.md`).
+   - For project notes use the `~/sb/templates/project.md` template and name the note with the `project` prefix topic (e.g., `project-agentic-commerce.md`).
+   - For Today I Learned (TIL) notes use the `~/sb/templates/til.md` template and name the note with the date, `til` prefix and topic (e.g., `2025-06-01-til-agent-skills.md`).
+   - For general notes use the `~/sb/templates/note.md` template and name the note with the topic (e.g., `migration-plan.md`).
 
 ### Find related notes
 
 Search for `[[Note Title]]` across the vault to find backlinks:
 
 ```bash
-grep -rl "\\[\\[Note Title\\]\\]" "~/sb/"
+rg -rl "\\[\\[Note Title\\]\\]" "~/sb/"
 ```
 
 ### Find index notes
@@ -61,3 +65,9 @@ grep -rl "\\[\\[Note Title\\]\\]" "~/sb/"
 ```bash
 find "~/sb/" -name "*Index*"
 ```
+
+## Conventions
+
+- Use **kebab-case** for all file and folder names
+- Keep source-docs **flexible** (any file format accepted)
+- **Never create commits or push code** - always ask the user first
